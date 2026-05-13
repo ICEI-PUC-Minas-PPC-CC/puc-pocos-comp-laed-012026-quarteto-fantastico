@@ -1,0 +1,21 @@
+title: Cadastro de Animais para Petshop
+authors:
+  - family-names: Almeida
+    given-names: Igor
+  - family-names: Navarro
+    given-names: Inacio
+  - family-names: Santos
+    given-names: Anderson
+  - family-names: Marques
+    given-names: Gabriel
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: Pontes
+    given-names: Diego
+  keywords:
+  - cadastro
+  - clientes
+  - nome do animal
+repository-code: https://github.com/ICEI-PUC-Minas-PPC-CC/puc-pocos-comp-laed-012026-quarteto-fantastico
+version: 1.0.0
+date-released: 2023-05-12
