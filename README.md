@@ -1,4 +1,4 @@
-# Cadastro de clientes para loja 
+# Cadastro de animais para petshop
 
 
 Alunos:
