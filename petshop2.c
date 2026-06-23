@@ -1,21 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <locale.h>
 
+ //Primeiro período Ciências da computação
+ //inacio, Anderson, Igor e Gabriel Marques
+
+    //registro
     struct petShop {
     int ativo;
-    int id;
+    int id; //criar um id para o pedido com um numero automatico rand...
     float peso;
     float preco;
     char raca[20];
     char dono[20];
     char pet[20];
+    char servico[20];
 };
-
+    int npedido;
 void limpar()
 {
-    system("cls");
+    system("clear || cls");
 }
 
     struct petShop pedidos[10];
@@ -24,11 +28,13 @@ void limpar()
 void inserir_dados()
 {
     if(pdd >= 10) {
-        printf("Numero máximo de pedidos atingidos\n");
-        return 0;
+        printf("Numero maximo de pedidos atingidos\n");
+        return;
     }
-    printf("ID: ");
-    scanf("%d", &pedidos[pdd].id);
+   // printf("Numero do pedido: ");
+                                            //Printf que tenho que colocar o número gerado altomaticamente
+   // scanf("%d", &pedidos[pdd].id);
+
     printf("Nome do pet: ");
     scanf("%s", pedidos[pdd].pet);
     printf("Nome do dono: ");
@@ -37,11 +43,26 @@ void inserir_dados()
     scanf("%s", pedidos[pdd].raca);
     printf("Peso (kg): ");
     scanf("%f", &pedidos[pdd].peso);
-    printf("Preco (R$): ");
-    scanf("%f", &pedidos[pdd].preco);
+    printf("servico (banho/tosa):");
+    scanf(" %[^\n]", pedidos[pdd].servico);
 
-    pedidos[pdd].ativo = 1; // marca como ativo, ele deixa ativo é simples
-    pdd++;  //aumenta o indice da struct
+
+    if(pedidos[pdd].peso<=5) {
+        pedidos[pdd].preco = 30.0;
+    }
+    else if (pedidos[pdd].peso <= 15)
+    {
+        pedidos[pdd].preco = 50.0;
+    } else {
+        pedidos[pdd].preco = 80.0;
+    }
+
+    limpar();
+    printf("------------------\n");
+    printf("Animal cadastrado!\n");
+    printf("Valor: R$%.2f\n\n", pedidos[pdd].preco);
+    pedidos[pdd].ativo = 1;
+    pdd++;
 }
 
 //funcão do menu do petshop
@@ -53,15 +74,133 @@ void menu_inicial()
     printf("[3] Buscar\n");
     printf("[4] Editar\n");
     printf("[5] Excluir\n");
-    printf("[6] Sair\n\n");
-    printf("> Insira a opção: ");
+    printf("[6] Sair\n");
+    printf("-----------------\n");
+    printf("> Insira a opcao: ");
 }
+//funcão do listar dados
+void listar_dados()
+{
+    limpar();
+    if( pdd == 0 ) {
+    limpar();
+    printf("----------------------------\n");
+    printf("Nenhum pedido foi solicitado\n\n");
+    return;
+    }
+
+    int i;
+    for(i=0; i<pdd; i++)
+
+    {
+        if (pedidos[i].ativo == 1) {
+    //printf("\nPedido %d\n", i);
+    printf("\nPedido %d\n", i + 1); // Mostra i+1 para o usuário não ver o zero
+    printf("---------------------\n");
+    printf("Pet: %s\n", pedidos[i].pet);
+    printf("Dono: %s\n", pedidos[i].dono);
+    printf("Raca: %s\n", pedidos[i].raca);
+    printf("Peso: %.2f kg\n", pedidos[i].peso);
+    printf("Preco: R$%.2f\n", pedidos[i].preco);
+    printf("servico: %s\n", pedidos[i].servico);
+    printf("---------------------\n");
+        }
+    }
+}
+void buscar_dados()
+{
+    limpar();
+    if(pdd == 0) {
+    printf("----------------------------\n");
+    printf("Nenhum pedido foi solicitado\n\n");
+    return;
+    }
+
+    limpar();
+    printf("Numero do pedido(1 a 10): ");
+    scanf("%d", &npedido);
+    npedido = npedido - 1;
+    printf("---------------------\n");
+    printf("Pedido: %d\n", npedido+1);
+    printf("---------------------\n");
+    printf("Pet: %s\n", pedidos[npedido].pet);
+    printf("Dono: %s\n", pedidos[npedido].dono);
+    printf("Raca: %s\n", pedidos[npedido].raca);
+    printf("Peso: %.2f kg\n", pedidos[npedido].peso);
+    printf("Preco: R$%.2f\n", pedidos[npedido].preco);
+    printf("servico: %s\n", pedidos[npedido].servico);
+
+
+    printf("---------------------\n");
+}
+
+void editar_dados()
+{
+    int num;
+    limpar();
+
+    printf("qual pedido deseja editar: ");
+    scanf("%d", &num);
+    num = num-1;
+    printf("\n--- Editando Pedido %d ---\n", num+1);
+    printf("Novo Pet: ");
+    scanf("%s", pedidos[num].pet);
+    printf("Novo Dono: ");
+    scanf("%s", pedidos[num].dono);
+    printf("Nova raca: ");
+    scanf("%s", pedidos[num].raca);
+    printf("Novo peso (kg): ");
+    scanf("%f", &pedidos[num].peso);
+    printf("Novo servico (banho/tosa): ");
+    scanf(" %[^\n]", pedidos[num].servico);
+
+
+   if(pedidos[num].peso<=5) {
+        pedidos[num].preco = 30.0;
+    }
+    else if (pedidos[num].peso <= 15)
+    {
+        pedidos[num].preco = 50.0;
+    } else {
+        pedidos[num].preco = 80.0;
+    }
+
+    limpar();
+    printf("------------------\n");
+    printf("Dados atualizados!\n");
+    printf("Novo Valor: R$%.2f\n\n", pedidos[num].preco);
+}
+
+void excluir_dados()
+{
+    int num;
+    limpar();
+    if(pdd == 0)
+    {
+        printf("Nenhum pedido cadastrado!\n");
+        return;
+    }
+    printf("Qual pedido deseja excluir: ");
+    scanf("%d", &num);
+    num = num - 1;
+    if(num < 0 || num >= pdd || pedidos[num].ativo == 0)
+    {
+        printf("Pedido inexistente!\n");
+        return;
+    }
+    pedidos[num].ativo = 0;
+    limpar();
+    printf("---------------------\n");
+    printf("Pedido %d excluido com sucesso!\n", num + 1);
+    printf("---------------------\n");
+}
+
 
  int main()
 {
     int opcao=0;
  //pontuação
-setlocale(LC_ALL, "Portuguese");
+  setlocale(LC_ALL, "Portuguese");
 
     while(opcao != 6) { //esse while deixa o programa rodando caso a entrada seja 6, ele sai :0
     menu_inicial();
@@ -73,19 +212,19 @@ setlocale(LC_ALL, "Portuguese");
     break;
 
     case 2:
-    //star_dados();
+    listar_dados();
     break;
 
     case 3:
-   //uscar_dados();
+    buscar_dados();
     break;
 
     case 4:
-   //ditar_dados();
+    editar_dados();
     break;
 
     case 5:
-   //xcluir_dados();
+    excluir_dados();
     break;
     }
 
@@ -98,4 +237,3 @@ setlocale(LC_ALL, "Portuguese");
     }
 return 0;
 }
-
