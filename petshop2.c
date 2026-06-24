@@ -5,10 +5,25 @@
  //Primeiro período Ciências da computação
  //inacio, Anderson, Igor e Gabriel Marques
 
+//-----------------------------------------------------------------------------------------------------
+
+                             //ERRRRRRROS
+ //scanf nas outras strings
+//barrar função editar,pois pode editar até as que não foram criadas
+//o excluir exclui na lista mas não no buscar
+//após excluir tudo deve ser printado,pedidos não cadastrados
+//arrumar função buscar (após excluir ainda aparece o pedido na função buscar)
+//na função buscar deve mostrar quais estao disponiveis para busca
+// ao inserir o numero de pedidos deve limpar a tela antes de printar pedidos maximos excedidos
+//se buscar por exemplo 12 aparece deveria printar ivalido ou algo asssim
+//se excluir um pedido deve liberar um espaço para um novo pedido
+
+//----------------------------------------------------------------------------------------------------------
+
+
     //registro
     struct petShop {
     int ativo;
-    int id; //criar um id para o pedido com um numero automatico rand...
     float peso;
     float preco;
     char raca[20];
@@ -19,7 +34,7 @@
     int npedido;
 void limpar()
 {
-    system("clear || cls");
+    system("cls");
 }
 
     struct petShop pedidos[10];
@@ -31,16 +46,12 @@ void inserir_dados()
         printf("Numero maximo de pedidos atingidos\n");
         return;
     }
-   // printf("Numero do pedido: ");
-                                            //Printf que tenho que colocar o número gerado altomaticamente
-   // scanf("%d", &pedidos[pdd].id);
-
     printf("Nome do pet: ");
-    scanf("%s", pedidos[pdd].pet);
+    scanf(" %[^\n]", pedidos[pdd].pet);
     printf("Nome do dono: ");
-    scanf("%s", pedidos[pdd].dono);
+    scanf(" %[^\n]", pedidos[pdd].dono);
     printf("Raca: ");
-    scanf("%s", pedidos[pdd].raca);
+    scanf(" %[^\n]", pedidos[pdd].raca);
     printf("Peso (kg): ");
     scanf("%f", &pedidos[pdd].peso);
     printf("servico (banho/tosa):");
@@ -94,7 +105,6 @@ void listar_dados()
 
     {
         if (pedidos[i].ativo == 1) {
-    //printf("\nPedido %d\n", i);
     printf("\nPedido %d\n", i + 1); // Mostra i+1 para o usuário não ver o zero
     printf("---------------------\n");
     printf("Pet: %s\n", pedidos[i].pet);
