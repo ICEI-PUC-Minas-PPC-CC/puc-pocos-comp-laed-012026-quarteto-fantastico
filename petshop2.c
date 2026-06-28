@@ -11,9 +11,9 @@
 
 //scanf nas outras strings  CORRIGIDO!! -> tava faltando o  %[^\n] só no editar dados
 
-//barrar função editar,pois pode editar até as que não foram criadas  CORRIGIDO!! -> linhas 171 e 181
+//barrar função editar,pois pode editar até as que não foram criadas  CORRIGIDO!! -> linhas 189 e 199
 
-//o excluir exclui na lista mas não no buscar  CORRIGIDO!! -> linha 145
+//o excluir exclui na lista mas não no buscar  CORRIGIDO!! -> linha 163
 
 //após excluir tudo deve ser printado,pedidos não cadastrados
 
@@ -21,11 +21,11 @@
 
 //na função buscar deve mostrar quais estao disponiveis para busca
 
-// ao inserir o numero de pedidos deve limpar a tela antes de printar pedidos maximos excedidos  CORRIGIDO!! linha 55
+// ao inserir o numero de pedidos deve limpar a tela antes de printar pedidos maximos excedidos  CORRIGIDO!! linha 66
 
 //se buscar por exemplo 12 aparece deveria printar ivalido ou algo asssim
 
-//se excluir um pedido deve liberar um espaço para um novo pedido
+//se excluir um pedido deve liberar um espaço para um novo pedido  CORRIGIDO!! -> função inserir dados
 
 //----------------------------------------------------------------------------------------------------------
 
@@ -51,39 +51,57 @@ void limpar()
 
 void inserir_dados()
 {
-    if(pdd >= 10) {
+    int pos = -1;
+    int i;
+
+    for(i = 0; i < 10; i++) {
+        if(pedidos[i].ativo == 0) {
+            pos = i;
+
+            break;
+        }
+    }
+
+    if(pos == -1) {
         limpar();
         printf("Numero maximo de pedidos atingidos\n");
         return;
     }
+
     printf("Nome do pet: ");
-    scanf(" %[^\n]", pedidos[pdd].pet);
+    scanf(" %[^\n]", pedidos[pos].pet);
     printf("Nome do dono: ");
-    scanf(" %[^\n]", pedidos[pdd].dono);
+    scanf(" %[^\n]", pedidos[pos].dono);
     printf("Raca: ");
-    scanf(" %[^\n]", pedidos[pdd].raca);
+    scanf(" %[^\n]", pedidos[pos].raca);
     printf("Peso (kg): ");
-    scanf("%f", &pedidos[pdd].peso);
+    scanf("%f", &pedidos[pos].peso);
     printf("servico (banho/tosa):");
-    scanf(" %[^\n]", pedidos[pdd].servico);
+    scanf(" %[^\n]", pedidos[pos].servico);
 
 
-    if(pedidos[pdd].peso<=5) {
-        pedidos[pdd].preco = 30.0;
+    if(pedidos[pos].peso<=5) {
+        pedidos[pos].preco = 30.0;
     }
-    else if (pedidos[pdd].peso <= 15)
+    else if (pedidos[pos].peso <= 15)
     {
-        pedidos[pdd].preco = 50.0;
+        pedidos[pos].preco = 50.0;
     } else {
-        pedidos[pdd].preco = 80.0;
+        pedidos[pos].preco = 80.0;
+    }
+
+    pedidos[pos].ativo = 1;
+
+    if(pos == pdd) {
+        pdd++;
     }
 
     limpar();
     printf("------------------\n");
     printf("Animal cadastrado!\n");
-    printf("Valor: R$%.2f\n\n", pedidos[pdd].preco);
-    pedidos[pdd].ativo = 1;
-    pdd++;
+    printf("Pedido: %d\n", pos + 1);
+    printf("Valor: R$%.2f\n\n", pedidos[pos].preco);
+
 }
 
 //funcão do menu do petshop
