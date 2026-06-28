@@ -8,14 +8,23 @@
 //-----------------------------------------------------------------------------------------------------
 
                              //ERRRRRRROS
- //scanf nas outras strings
-//barrar função editar,pois pode editar até as que não foram criadas
-//o excluir exclui na lista mas não no buscar
+
+//scanf nas outras strings  CORRIGIDO!! -> tava faltando o  %[^\n] só no editar dados
+
+//barrar função editar,pois pode editar até as que não foram criadas  CORRIGIDO!! -> linhas 171 e 181
+
+//o excluir exclui na lista mas não no buscar  CORRIGIDO!! -> linha 145
+
 //após excluir tudo deve ser printado,pedidos não cadastrados
-//arrumar função buscar (após excluir ainda aparece o pedido na função buscar)
+
+//arrumar função buscar (após excluir ainda aparece o pedido na função buscar) CORRIGIDO!! -> mesma coisa do terceiro erro
+
 //na função buscar deve mostrar quais estao disponiveis para busca
-// ao inserir o numero de pedidos deve limpar a tela antes de printar pedidos maximos excedidos
+
+// ao inserir o numero de pedidos deve limpar a tela antes de printar pedidos maximos excedidos  CORRIGIDO!! linha 55
+
 //se buscar por exemplo 12 aparece deveria printar ivalido ou algo asssim
+
 //se excluir um pedido deve liberar um espaço para um novo pedido
 
 //----------------------------------------------------------------------------------------------------------
@@ -43,6 +52,7 @@ void limpar()
 void inserir_dados()
 {
     if(pdd >= 10) {
+        limpar();
         printf("Numero maximo de pedidos atingidos\n");
         return;
     }
@@ -127,9 +137,18 @@ void buscar_dados()
     }
 
     limpar();
+
     printf("Numero do pedido(1 a 10): ");
     scanf("%d", &npedido);
     npedido = npedido - 1;
+
+    if(npedido < 0 || npedido >= pdd || pedidos[npedido].ativo == 0) {  //*
+    printf("---------------------\n");
+    printf("Pedido inexistente!\n");
+    printf("---------------------\n");
+    return;
+}
+
     printf("---------------------\n");
     printf("Pedido: %d\n", npedido+1);
     printf("---------------------\n");
@@ -149,20 +168,33 @@ void editar_dados()
     int num;
     limpar();
 
+    if(pdd == 0) //*
+    {
+        printf("Nenhum pedido cadastrado!\n");
+        return;
+    }
+
     printf("qual pedido deseja editar: ");
     scanf("%d", &num);
     num = num-1;
+
+    if(num < 0 || num >= pdd || pedidos[num].ativo == 0) //*
+    {
+        printf("Pedido inexistente!\n");
+        return;
+    }
+
     printf("\n--- Editando Pedido %d ---\n", num+1);
     printf("Novo Pet: ");
-    scanf("%s", pedidos[num].pet);
+    scanf("%[^\n]", pedidos[num].pet);
     printf("Novo Dono: ");
-    scanf("%s", pedidos[num].dono);
+    scanf("%[^\n]", pedidos[num].dono);
     printf("Nova raca: ");
-    scanf("%s", pedidos[num].raca);
+    scanf("%[^\n]", pedidos[num].raca);
     printf("Novo peso (kg): ");
     scanf("%f", &pedidos[num].peso);
     printf("Novo servico (banho/tosa): ");
-    scanf(" %[^\n]", pedidos[num].servico);
+    scanf("%[^\n]", pedidos[num].servico);
 
 
    if(pedidos[num].peso<=5) {
