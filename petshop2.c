@@ -25,7 +25,7 @@
 
 //se buscar por exemplo 12 aparece deveria printar ivalido ou algo asssim
 
-//se excluir um pedido deve liberar um espaço para um novo pedido  CORRIGIDO!! -> função inserir dados
+//se excluir um pedido deve liberar um espaço para um novo pedido  CORRIGIDO!! -> função inserir dados + int main
 
 //----------------------------------------------------------------------------------------------------------
 
@@ -259,8 +259,13 @@ void excluir_dados()
  int main()
 {
     int opcao=0;
+    int i;
  //pontuação
   setlocale(LC_ALL, "Portuguese");
+
+    for(i = 0; i < 10; i++) {
+        pedidos[i].ativo = 0;
+    }
 
     while(opcao != 6) { //esse while deixa o programa rodando caso a entrada seja 6, ele sai :0
     menu_inicial();
